@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: quiz-poll-bot
+    env: docker
+    plan: free
+    branch: master
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    envVars:
+      - key: BOT_TOKEN
+        value: ""
+      - key: BASE_URL
+        value: ""
+      - key: PORT
+        value: "3000"
