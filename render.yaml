@@ -1,15 +1,19 @@
 services:
-  - type: web
-    name: quiz-poll-bot
-    env: docker
+  - type: worker
+    name: post-search-bot
+    env: python
     plan: free
-    branch: master
-    dockerfilePath: ./Dockerfile
-    buildCommand: ""
+    branch: main  # make sure your repo uses 'main'
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
     envVars:
       - key: BOT_TOKEN
-        value: ""
-      - key: BASE_URL
-        value: ""
-      - key: PORT
-        value: "3000"
+        value: your_telegram_bot_token
+      - key: API_ID
+        value: your_telegram_api_id
+      - key: API_HASH
+        value: your_telegram_api_hash
+      - key: MONGO_URI
+        value: your_mongodb_uri_if_used
+      - key: DB_NAME
+        value: your_database_name
