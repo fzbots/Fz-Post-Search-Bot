@@ -67,7 +67,7 @@ async def misc(bot, update):
            InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data="misc_about")
        ],[
            InlineKeyboardButton("🤖 ᴜᴘᴅᴀᴛᴇ", url="https://t.me/Faiz_Movies"),
-           InlineKeyboardButton("🔍 ɢʀᴏᴜᴘ", url="https://t.me/FZmoviesrequest")
+           InlineKeyboardButton("🔍 ɢʀᴏᴜᴘ", url="https://t.me/Fz_Support_Group")
        ]]
        await update.message.edit(text=script.START.format(update.from_user.mention),
                                  disable_web_page_preview=True,
