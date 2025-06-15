@@ -16,5 +16,3 @@ async def reset_group(client, message: Message):
         await message.reply("✅ Group ki settings reset kar di gayi hain.")
     else:
         await message.reply("⚠️ Is group ke liye koi saved settings nahi mili.")
-
-```
