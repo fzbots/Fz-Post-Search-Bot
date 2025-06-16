@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from config import ADMIN, API_HASH, API_ID
+from info import ADMIN, API_HASH, API_ID
 from database import database, get_group
 from utils import force_sub, send_message_in_chunks
 
