@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from info import ADMIN, API_HASH, API_ID
-from utils.helpers import database, get_group
+from plugins.generate import database
+from utils.helpers import get_group
 from utils import force_sub, send_message_in_chunks
 
 @Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
