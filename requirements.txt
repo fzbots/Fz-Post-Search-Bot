@@ -5,6 +5,7 @@ tgcrypto
 pymongo==4.6.3
 motor==3.3.2
 dnspython>=2.4
+certifi
 
 cinemagoer
 aiohttp
@@ -17,4 +18,3 @@ gunicorn==20.1.0
 Jinja2==3.0.3
 werkzeug==2.0.2
 itsdangerous==2.0.1
-certifi
