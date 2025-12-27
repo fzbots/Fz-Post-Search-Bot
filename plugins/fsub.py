@@ -1,7 +1,3 @@
-# Don't Remove Credit Tg - @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 from info import *
 from utils import *
 from pyrogram import Client, filters
@@ -77,11 +73,11 @@ async def f_sub_callback(bot, update):
     admin   = group["user_id"]
 
     if update.from_user.id!=user_id:
-       return await update.answer("<b>That's not for you</b> 😂", show_alert=True)
+       return await update.answer("That's not for you 😑", show_alert=True)
     try:
        await bot.get_chat_member(f_sub, user_id)          
     except UserNotParticipant:
-       await update.answer("<b>I like your smartness..\nBut don't be over smart</b> 🤭", show_alert=True) # @kingvj01 😁
+       await update.answer("I like your smartness..\nBut don't be over smart 😬", show_alert=True) # @STEVEBOTZ 😁
     except:       
        await bot.restrict_chat_member(chat_id=update.message.chat.id, 
                                       user_id=user_id,
