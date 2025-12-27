@@ -1,19 +1,12 @@
-# Don't Remove Credit @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot @Tech_VJ
-# Ask Doubt on telegram @KingVJ01
+FROM python:3.10.8-slim-buster
 
-FROM python:3.10-slim-bullseye
+RUN apt update && apt upgrade -y
+RUN apt install git -y
+COPY requirements.txt /requirements.txt
 
-RUN apt update \
-    && apt install -y git bash ca-certificates \
-    && update-ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
+RUN cd /
+RUN pip3 install -U pip && pip3 install -U -r requirements.txt
+RUN mkdir /VJ-Post-Search-Bot
 WORKDIR /VJ-Post-Search-Bot
-
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["bash", "-c", "python3 app.py & python3 main.py"]
+COPY . /VJ-Post-Search-Bot
+CMD gunicorn app:app & python3 main.py
