@@ -2,10 +2,11 @@
 # Subscribe YouTube Channel For Amazing Bot @Tech_VJ
 # Ask Doubt on telegram @KingVJ01
 
-FROM python:3.10-slim
+FROM python:3.10-slim-bullseye
 
 RUN apt update \
-    && apt install -y git bash \
+    && apt install -y git bash ca-certificates \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /VJ-Post-Search-Bot
