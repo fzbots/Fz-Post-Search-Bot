@@ -1,7 +1,3 @@
-# Don't Remove Credit Tg - @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 from info import *
 from utils import *
 from plugins.generate import database
@@ -25,13 +21,13 @@ async def connect(bot, message):
     except :
        return await bot.leave_chat(message.chat.id)  
     if message.from_user.id!=user_id:
-       return await m.edit(f"<b>Only {user_name} can use this command</b> 😁")
+       return await m.edit(f"Only {user_name} can use this command 😁")
     if bool(verified)==False:
-       return await m.edit("💢 <b>This chat is not verified!\n⭕ use /verify</b>")    
+       return await m.edit("📇 <b>This chat is not verified!\n📨 use /verify</b>")    
     try:
        channel = int(message.command[-1])
        if channel in channels:
-          return await message.reply("💢 <b>This channel is already connected! You Cant Connect Again</b>")
+          return await message.reply("🧸 <b>This channel is already connected! You Cant Connect Again</b>")
        channels.append(channel)
     except:
        return await m.edit("❌ <b>Incorrect format!\nUse</b> `/connect ChannelID`")    
@@ -45,10 +41,10 @@ async def connect(bot, message):
        if "The user is already a participant" in str(e):
           pass
        else:
-          text = f"❌ <b>Error:</b> `{str(e)}`\n⭕ <b>Make sure I'm admin in that channel & this group with all permissions and {user.mention} is not banned there</b>"
+          text = f"❌ <b>Error:</b> `{str(e)}`\n😑 <b>Make sure I'm admin in that channel & this group with all permissions and {user.mention} is not banned there</b>"
           return await m.edit(text)
     await update_group(message.chat.id, {"channels":channels})
-    await m.edit(f"💢 <b>Successfully connected to [{chat.title}]({c_link})!</b>", disable_web_page_preview=True)
+    await m.edit(f"✅ <b>Successfully connected to [{chat.title}]({c_link})!</b>", disable_web_page_preview=True)
     text = f"#NewConnection\n\nUser: {message.from_user.mention}\nGroup: [{group.title}]({g_link})\nChannel: [{chat.title}]({c_link})"
     await bot.send_message(chat_id=LOG_CHANNEL, text=text)
 
@@ -87,12 +83,51 @@ async def disconnect(bot, message):
        g_link = group.invite_link
        await User.leave_chat(channel)
     except Exception as e:
-       text = f"❌ <b>Error:</b> `{str(e)}`\n💢 <b>Make sure I'm admin in that channel & this group with all permissions and {(user.username or user.mention)} is not banned there</b>"
+       text = f"❌ <b>Error:</b> `{str(e)}`\n😑 <b>Make sure I'm admin in that channel & this group with all permissions and {(user.username or user.mention)} is not banned there</b>"
        return await m.edit(text)
     await update_group(message.chat.id, {"channels":channels})
-    await m.edit(f"💢 <b>Successfully disconnected from [{chat.title}]({c_link})!</b>", disable_web_page_preview=True)
+    await m.edit(f"✅ <b>Successfully disconnected from [{chat.title}]({c_link})!</b>", disable_web_page_preview=True)
     text = f"#DisConnection\n\nUser: {message.from_user.mention}\nGroup: [{group.title}]({g_link})\nChannel: [{chat.title}]({c_link})"
     await bot.send_message(chat_id=LOG_CHANNEL, text=text)
+    
+
+@Client.on_message(filters.group & filters.command("reset_grp"))
+async def reset_grp(bot, message):
+    m = await message.reply("Resetting group settings...")
+    try:
+        group = await get_group(message.chat.id)
+        user_id = group["user_id"]
+        user_name = group["user_name"]
+        verified = group["verified"]
+    except:
+        return await bot.leave_chat(message.chat.id)
+    
+    if message.from_user.id != user_id:
+        return await m.edit(f"Only {user_name} can use this command 😁")
+    
+    if not bool(verified):
+        return await m.edit("This chat is not verified!\nUse /verify to verify this group.")
+    
+    try:
+        # Reset group data
+        default_data = {
+            "channels": [],
+            "f_sub": None,
+        }
+        await update_group(message.chat.id, default_data)
+        await m.edit("✅ Group settings have been successfully reset!")
+        
+        # Log the reset
+        group_info = await bot.get_chat(message.chat.id)
+        group_link = group_info.invite_link
+        log_text = (
+            f"#GroupReset\n\nUser: {message.from_user.mention}\n"
+            f"Group: [{group_info.title}]({group_link})\n"
+            "Group settings have been reset to default."
+        )
+        await bot.send_message(chat_id=LOG_CHANNEL, text=log_text)
+    except Exception as e:
+        await m.edit(f"❌ Error: `{e}`")
 
 
 @Client.on_message(filters.group & filters.command("connections"))
