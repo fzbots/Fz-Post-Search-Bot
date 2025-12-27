@@ -1,12 +1,27 @@
-FROM python:3.10.8-slim-buster
+FROM python:3.10-slim-bookworm
 
-RUN apt update && apt upgrade -y
-RUN apt install git -y
-COPY requirements.txt /requirements.txt
+# Avoid interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
 
-RUN cd /
-RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-RUN mkdir /VJ-Post-Search-Bot
+# Install system dependencies
+RUN apt update && apt install -y \
+    git \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /VJ-Post-Search-Bot
-COPY . /VJ-Post-Search-Bot
-CMD gunicorn app:app & python3 main.py
+
+# Copy requirements first (better caching)
+COPY requirements.txt .
+
+# Upgrade pip & install python deps
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+# Copy full project
+COPY . .
+
+# Start bot (single main process – correct for Docker)
+CMD ["python3", "main.py"]
