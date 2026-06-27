@@ -19,7 +19,8 @@ dlt_col = db["Auto-Delete"]
 
 # ia = Cinemagoer()
 # ia = Cinemagoer("http")
-ia = IMDb(accessSystem="http")
+#ia = IMDb(accessSystem="http")
+ia = IMDb()
 
 async def add_group(group_id, group_name, user_name, user_id, channels, f_sub, verified):
     data = {
