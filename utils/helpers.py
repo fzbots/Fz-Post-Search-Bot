@@ -3,7 +3,7 @@ import logging
 from info import *
 from pyrogram import enums
 from pyrogram.errors import UserNotParticipant, FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
-from imdb import Cinemagoer
+from imdb import Cinemagoer, IMDb
 from pymongo.errors import DuplicateKeyError
 from motor.motor_asyncio import AsyncIOMotorClient
 from pyrogram.types import ChatPermissions, InlineKeyboardMarkup, InlineKeyboardButton
@@ -17,7 +17,9 @@ grp_col = db["GROUPS"]
 user_col = db["USERS"]
 dlt_col = db["Auto-Delete"]
 
-ia = Cinemagoer()
+# ia = Cinemagoer()
+# ia = Cinemagoer("http")
+ia = IMDb(accessSystem="http")
 
 async def add_group(group_id, group_name, user_name, user_id, channels, f_sub, verified):
     data = {
@@ -152,3 +154,4 @@ async def broadcast_messages(user_id, message):
     except Exception as e:
         logging.error(f"Error broadcasting to {user_id}: {e}")
         return False, "Error"
+        
