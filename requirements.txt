@@ -2,6 +2,7 @@ pyrofork
 tgcrypto
 motor[srv]
 IMDbPY==2022.7.9
+cinemagoer<2024
 aiohttp
 aiofiles
 asyncio
