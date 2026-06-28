@@ -3,7 +3,7 @@ import logging
 from info import *
 from pyrogram import enums
 from pyrogram.errors import UserNotParticipant, FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
-from imdb import Cinemagoer, IMDb
+from imdb import IMDb
 from pymongo.errors import DuplicateKeyError
 from motor.motor_asyncio import AsyncIOMotorClient
 from pyrogram.types import ChatPermissions, InlineKeyboardMarkup, InlineKeyboardButton
